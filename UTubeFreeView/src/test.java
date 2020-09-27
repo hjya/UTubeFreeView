@@ -39,7 +39,9 @@ public class test  extends JFrame{
 	 */
 	public test() {
 		setBackground(Color.BLACK);
-		
+		String osname =  System.getProperty("os.name");
+
+		System.out.println(osname);
 		
 		Calendar cal = Calendar.getInstance();
 		cal.setTimeInMillis(1600);
@@ -56,7 +58,7 @@ public class test  extends JFrame{
 		
 		JLabel lblNewLabel = new JLabel("New label");
 		contentPane.add(lblNewLabel, BorderLayout.NORTH);
-		this.setVisible(true);
+		//this.setVisible(true);
 		/*************
 
 		   

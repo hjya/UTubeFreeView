@@ -373,7 +373,9 @@ public class UTubeFreeView{
 								ex.printStackTrace();
 							}
 							//do nothing;;;;;;;
-						}else if( false ){
+						}
+						/*************
+						else if( false ){
 							driver_url = driver.getCurrentUrl();
 							if( driver_url.contains("watch?v="))
 							{
@@ -427,7 +429,7 @@ public class UTubeFreeView{
 							System.out.println("driver_url = " + driver_url);
 							System.out.println("driver_url_next = " +  driver_url_next + " :: title_next = " + title_next);
 						}
-						
+						/*************/
 						try {
 							Thread.sleep(100);
 						} catch (InterruptedException e) {
@@ -445,6 +447,7 @@ public class UTubeFreeView{
 		
 	}
 	
+	/**********
 	void extenalPlayerRun(String url, String title, String imgsrc)
 	{
 		try {
@@ -453,13 +456,14 @@ public class UTubeFreeView{
 			System.out.println(imgsrc);
 			this.jframe.setTitle(title);
 			if( url != null && !url.equals("")) {
-				this.jframe.vlcPanel.vlcPlay(url,title);
+				//this.jframe.vlcPanel.vlcPlay(url,title);
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
+	/**********/
 	
 	void taskkill()
 	{

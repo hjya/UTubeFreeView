@@ -462,7 +462,7 @@ public class UTubeFreeJFrame extends JFrame {
 		//JPanel panel_imsi = new JPanel();
 		//panel.add(vlcPanel, BorderLayout.CENTER);
 				
-		this.setTitle("UTube Viewere V1.0");
+		this.setTitle("UTube Viewer V1.0");
 		this.setVisible(true);
 		test = new MPVFrame(this);
 		try {
