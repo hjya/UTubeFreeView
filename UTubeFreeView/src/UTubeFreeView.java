@@ -11,6 +11,7 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -107,6 +108,7 @@ public class UTubeFreeView{
 						if( (!og_title.equals(driver.getTitle()) && !og_url.equals(driver.getCurrentUrl())) || ( ispass ) )// && 
 						{
 							ispass = false;
+							String mimage = "";
 							try {
 								
 								try {
@@ -140,17 +142,32 @@ public class UTubeFreeView{
 									try {
 										wait = new WebDriverWait(driver, 1);
 										wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ytd-player")));
-										driver.findElement(By.id("ytd-player")).click();
+										//driver.findElement(By.id("ytd-player")).click();
 										
 										try {
 											wait = new WebDriverWait(driver, 1);
-											wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("ytp-volume-panel")));
-											String mute = driver.findElement(By.className("ytp-volume-panel")).getAttribute("aria-valuetext");
+											wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("button[class='ytp-mute-button ytp-button']")));
+											String mute = driver.findElement(By.cssSelector("button[class='ytp-mute-button ytp-button']")).getAttribute("aria-label");
 											System.out.println("mute ===== " + mute);
-											if( mute.contains("음소거") ) {
+											if( mute.contains("해제") ) {
 												
 											}else {
-												driver.findElement(By.className("ytp-volume-panel")).click();
+												driver.findElement(By.cssSelector("button[class='ytp-mute-button ytp-button']")).click();
+											}
+										}catch(Exception ex)
+										{
+											
+										}
+										try {
+											wait = new WebDriverWait(driver, 1);
+											wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("paper-toggle-button[id='toggle']")));
+											String autoplay = driver.findElement(By.cssSelector("paper-toggle-button[id='toggle']")).getAttribute("aria-pressed");
+											System.out.println("autoplay ===== " + autoplay);
+											if( autoplay.contains("true") ) {
+												driver.findElement(By.cssSelector("div[id='toggleButton']")).click();
+												//driver.findElement(By.cssSelector("div[id='toggleButton']")).sendKeys(Keys.ENTER);
+											}else {
+												
 											}
 										}catch(Exception ex)
 										{
@@ -160,23 +177,47 @@ public class UTubeFreeView{
 									{
 										
 									}
+									
+									try {
+										mimage = driver.findElement(By.cssSelector("link[itemprop='thumbnailUrl']")).getAttribute("href");
+										if(mimage != null && !mimage.equals(""))
+											jframe.drawPanel.setImage(ImageIO.read(new URL(mimage)));
+									}catch(Exception ex) {
+										
+									}
+									
 									/*************/
 									driver.navigate().refresh();
 																		
 									wait = new WebDriverWait(driver, 1);
 									wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ytd-player")));
-									driver.findElement(By.id("ytd-player")).click();
+									//driver.findElement(By.id("ytd-player")).click();
 									/*************/
 									
 									try {
 										wait = new WebDriverWait(driver, 1);
-										wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("ytp-volume-panel")));
-										String mute = driver.findElement(By.className("ytp-volume-panel")).getAttribute("aria-valuetext");
+										wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("button[class='ytp-mute-button ytp-button']")));
+										String mute = driver.findElement(By.cssSelector("button[class='ytp-mute-button ytp-button']")).getAttribute("aria-label");
 										System.out.println("mute ===== " + mute);
-										if( mute.contains("음소거") ) {
+										if( mute.contains("해제") ) {
 											
 										}else {
-											driver.findElement(By.className("ytp-volume-panel")).click();
+											driver.findElement(By.cssSelector("button[class='ytp-mute-button ytp-button']")).click();
+										}
+									}catch(Exception ex)
+									{
+										
+									}
+									try {
+										wait = new WebDriverWait(driver, 1);
+										wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("paper-toggle-button[id='toggle']")));
+										String autoplay = driver.findElement(By.cssSelector("paper-toggle-button[id='toggle']")).getAttribute("aria-pressed");
+										System.out.println("autoplay ===== " + autoplay);
+										if( autoplay.contains("true") ) {
+											driver.findElement(By.cssSelector("div[id='toggleButton']")).click();
+											//driver.findElement(By.cssSelector("div[id='toggleButton']")).sendKeys(Keys.ENTER);
+										}else {
+											
 										}
 									}catch(Exception ex)
 									{
@@ -223,12 +264,10 @@ public class UTubeFreeView{
 								jframe.drawPanel.setTitle(mtitle);
 								jframe.lbltitle.setText(mtitle);
 								jframe.lbltitle_view.setText(viewcnt + published );
-								
-								
-								
+								jframe.repaint();
 								
 								String murl = "";
-								String mimage = "";
+								
 								try {
 									murl = driver.findElement(By.cssSelector("link[itemprop='embedUrl']")).getAttribute("href");
 									String oriurl = driver.findElement(By.cssSelector("link[itemprop='url']")).getAttribute("href");
@@ -303,7 +342,7 @@ public class UTubeFreeView{
 								
 								
 								jframe.drawPanel.repaint();
-								
+								jframe.repaint();
 								
 								
 								/***********
@@ -502,7 +541,6 @@ public class UTubeFreeView{
 	    options.setCapability("ignoreProtectedModeSettings", true);
 	    options.addArguments("--disable-popup-blocking");
 	    driver = new ChromeDriver(options);
-	    
 	
 	}
 	

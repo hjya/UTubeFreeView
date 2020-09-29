@@ -134,6 +134,7 @@ public class MPVFrame {
 				mframe.setProperty("volume", String.valueOf(vol));
 				mframe.download.mpv.mpv_set_property_string( mframe.download.handle,"osd-level", "3");
 				mframe.download.mpv.mpv_set_property_string( mframe.download.handle,"osd-msg3", mtime);
+				mframe.download.mpv.mpv_set_property_string( mframe.download.handle,"gpu-sw", "yes");
 				
 				
 			}
